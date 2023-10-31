@@ -1,6 +1,8 @@
 #include "HanoiTower.h"
 #include <ostream>
 #include <iostream>
+#include <thread>
+//#include <cstdlib> 
 
 constexpr unsigned char light = 176;
 constexpr unsigned char shade = 178;
@@ -14,10 +16,18 @@ HanoiTowers::HanoiTowers(unsigned int size) : _size {size}
 	}
 }
 
-void HanoiTowers::solve(bool print)
+void HanoiTowers::solve(Place place, bool clear, int milliseconds)
 {
 	std::cout << *this << "\n";
-	solveRecursively(_size, first, second, third, print);
+	switch (place)
+	{
+	case HanoiTowers::Place::second:
+		solveRecursively(_size, first, second, third, clear, milliseconds);
+		break;
+	case HanoiTowers::Place::third:
+		solveRecursively(_size, first, third, second, clear, milliseconds);
+		break;
+	}
 }
 
 void printOneRow(int index, std::ostream& stream, std::vector<Disk>& tower, int towerLength, int totalHeight)
@@ -78,14 +88,19 @@ void HanoiTowers::move(std::vector<Disk>& source, std::vector<Disk>& dest)
 	source.pop_back();
 }
 
-void HanoiTowers::solveRecursively(unsigned int n, std::vector<Disk>& source, std::vector<Disk>& destination, std::vector<Disk>& reserve, bool print)
+void HanoiTowers::solveRecursively(unsigned int n, std::vector<Disk>& source, std::vector<Disk>& destination, std::vector<Disk>& reserve, bool clear, int milliseconds)
 {
 	if (n == 0)
 		return;
 
-	solveRecursively(n - 1, source, reserve, destination, print);
+	solveRecursively(n - 1, source, reserve, destination, clear, milliseconds);
 	move(source, destination);
-	if (print)
-		std::cout << *this << "\n";
-	solveRecursively(n - 1, reserve, destination, source, print);
+	if (clear)
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds{ milliseconds });
+		system("cls");
+	}
+	std::cout << *this << "\n";
+
+	solveRecursively(n - 1, reserve, destination, source, clear, milliseconds);
 }

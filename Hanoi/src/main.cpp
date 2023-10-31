@@ -5,7 +5,7 @@
 
 int main()
 {
-	HanoiTowers h(3);
+	HanoiTowers h(6);
 
 	h.solve();
 
