@@ -5,9 +5,9 @@
 
 int main()
 {
-	HanoiTowers h(6);
+	HanoiTowers h(5);
 
-	h.solve();
+	h.solve(200);
 
 	return 0;
 }

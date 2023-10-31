@@ -12,7 +12,10 @@ public:
 	enum class Place { second, third };
 
 	HanoiTowers(unsigned size = 5);
-	void solve(Place place = Place::third, bool clear = true, int milliseconds = 300);
+	void solve(Place place = Place::third, bool clear = true, int milliseconds = 200);
+	void solve(bool clear = true, int milliseconds = 200, Place place = Place::third);
+	void solve(int milliseconds = 200, Place place = Place::third);
+	void solve(Place place = Place::third, int milliseconds = 200);
 	friend std::ostream& operator<<(std::ostream& stream,HanoiTowers& towers);
 
 private:

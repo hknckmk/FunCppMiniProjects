@@ -30,6 +30,21 @@ void HanoiTowers::solve(Place place, bool clear, int milliseconds)
 	}
 }
 
+void HanoiTowers::solve(bool clear, int milliseconds, Place place)
+{
+	solve(place, clear, milliseconds);
+}
+
+void HanoiTowers::solve(int milliseconds, Place place)
+{
+	solve(place, true, milliseconds);
+}
+
+void HanoiTowers::solve(Place place, int milliseconds)
+{
+	solve(place, true, milliseconds);
+}
+
 void printOneRow(int index, std::ostream& stream, std::vector<Disk>& tower, int towerLength, int totalHeight)
 {
 	int currentSize = 0;
@@ -53,6 +68,7 @@ void printOneRow(int index, std::ostream& stream, std::vector<Disk>& tower, int 
 		else
 			stream << light;
 	}
+	std::cout.flush();
 }
 
 std::ostream& operator<<(std::ostream& stream, HanoiTowers& towers)
